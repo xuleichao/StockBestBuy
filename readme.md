@@ -4,5 +4,7 @@
 ---
 ## 步骤
 1. 爬取历史股价，K线(正在进行)
+- 所有股票代码http://quote.eastmoney.com/stocklist.html
+- 股票数据http://www.aigaogao.com/tools/history.html
 2. 建模
 3. 预测
