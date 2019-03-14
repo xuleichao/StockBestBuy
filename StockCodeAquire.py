@@ -10,10 +10,15 @@ def get_soup(url):
     soup = bsp(html_data, 'lxml')
     return soup
 
+def li_filter(li):
+    if '(' in li.text:
+        return li
+
 if __name__ == '__main__':
     url = 'http://quote.eastmoney.com/stocklist.html'
     soup = get_soup(url)
     lis = soup.find_all('li')
     for i in lis:
-        print(i)
+        if li_filter(i):
+            print(i.text)
 
