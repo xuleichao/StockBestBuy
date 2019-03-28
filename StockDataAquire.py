@@ -16,8 +16,25 @@ base_url = 'http://www.aigaogao.com/tools/history.html?s='
 def get_KLine_data(code):
     '''传入股票代码，获得K线'''
     soup = get_soup(base_url + code)
-    pass
+    data = get_table_data(soup)
+    data_df = DataFrame(data[1: ], columns=data[0])
+    return data_df
+
+def get_table_data(soup):
+    '''获得网页中的table数据'''
+    tables = soup.find_all('table')
+    table = tables[-1] # 股价数据table
+    trs = table.find_all('tr') # 每个tr 是一行，找出table中的所有tr
+    result = []
+    for i in trs:
+        tds = i.find_all('td')
+        sub_rslt = []
+        for j in tds:
+            sub_rslt.append(j.text)
+        result.append(sub_rslt)
+    return result
 
 if __name__ == '__main__':
     for i in stock_codes_data:
-        get_KLine_data(i[1])
+        z = get_KLine_data(i[1])
+        print(z)
