@@ -8,3 +8,6 @@
 - [股票数据](http://www.aigaogao.com/tools/history.html)
 2. 建模
 3. 预测
+
+附：
+[BeautifulSoup文档](https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html)
