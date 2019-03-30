@@ -1,4 +1,5 @@
 import re
+import pickle
 import urllib.request
 from pandas import DataFrame
 from bs4 import BeautifulSoup as bsp
@@ -36,5 +37,10 @@ def get_table_data(soup):
 
 if __name__ == '__main__':
     for i in stock_codes_data:
-        z = get_KLine_data(i[1])
-        print(z)
+        try:
+            z = get_KLine_data(i[1])
+        except:
+            pass
+        with open('./dataSets/stock_KL/%s.dataframe'%i[0].strip(), 'wb') as f:
+            f.write(pickle.dumps(z))
+
