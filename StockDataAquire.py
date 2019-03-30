@@ -1,4 +1,5 @@
 import re
+import os
 import pickle
 import urllib.request
 from pandas import DataFrame
@@ -35,12 +36,22 @@ def get_table_data(soup):
         result.append(sub_rslt)
     return result
 
+def get_has_files(path='./dataSets/stock_KL'):
+    files = os.listdir(path)
+    files = [i for i in files if '.dataframe' in i]
+    return files
+
 if __name__ == '__main__':
+    files = get_has_files()
     for i in stock_codes_data:
         try:
+            stock_name = i[0]
+            if stock_name + '.dataframe' in files:
+                continue
             z = get_KLine_data(i[1])
+            with open('./dataSets/stock_KL/%s.dataframe' % (i[0].strip().replace('*', '_')), 'wb') as f:
+                f.write(pickle.dumps(z))
         except:
             pass
-        with open('./dataSets/stock_KL/%s.dataframe'%i[0].strip(), 'wb') as f:
-            f.write(pickle.dumps(z))
+
 
