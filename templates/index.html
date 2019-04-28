@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8" /> 
+<title>test</title> 
+</head> 
+ 
+<body> 
+
+<p>股票K线</p> 
+<p> 
+<img src="/static/images/test.jpg" width="1000" height="600" /> 
+</p> 
+<form action="/receive" method="get" style="position: absolute; right:100px; top:20px"> 
+在此处标注：<br /><br /> 
+股票代码：{{ code }}<br /><br /> 
+{% for i,j in result %}
+<label><input action="" name="dateList{{j}}" type="checkbox" value="{{j + '　 | 　' + i + ',' + code}}" />{{j + '　 | 　' + i}} </label> </br> 
+{% endfor %}
+<br /><br />
+<button id="btn-submit" type="submit" onclick="">提交</button>
+<script>
+function beforeSubmit()
+{
+	var data_form = document.body.getElementsByTagName('form');
+	var labels = data_form[0].getElementsByTagName('label');
+	var url = document.URL;
+	var result = [];
+	for (var i=0; i<labels.length; i++){
+		var input_check = labels[i].getElementsByTagName('input')[0].checked;
+		var text = labels[i].textContent;
+		if(input_check == true){
+			console.log(text);
+			result.splice(result.length, 0, text);
+			}
+	}
+	console.log(result);
+	result.submit();
+	//return result;
+}
+</script>
+</form>
+</body> 
+</html> 
