@@ -4,7 +4,7 @@ import pickle
 import pymysql
 from sqlalchemy import create_engine
 
-conn = create_engine('mysql+pymysql://root:111111@39.106.156.194:3306/my_gupiao?charset=utf8', pool_pre_ping=True)
+conn = create_engine('mysql+pymysql://root:****/my_gupiao?charset=utf8', pool_pre_ping=True)
 con = conn.connect()
 
 datasets = '../dataSets/stock_KL'
