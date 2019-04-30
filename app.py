@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 @app.route('/tagging')
 def hello_world():
-    result = graph_main()
-    template = render_template('index.html', result=result, code='002400')
+    result, code = graph_main()
+    template = render_template('index.html', result=result, code=code)
     return template
 	
 @app.route('/receive')
