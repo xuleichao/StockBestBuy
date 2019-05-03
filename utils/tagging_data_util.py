@@ -24,6 +24,7 @@ def get_dataframe(name):
     for i in useful_header:
         df.pop(i)
     last_time = df.head(1)['date_time'] #获取最近的时间
+
     return df, last_time
 
 def get_data_main():
@@ -37,6 +38,7 @@ def get_data_main():
         if tagging_stock_info:
             # 获取本地股票的dataframe，第一项是dataframe，第二项是最近日期
             local_df, local_last_time = get_dataframe(name)
+            local_last_time = datetime.datetime.fromtimestamp(datetime.datetime.timestamp(local_last_time[0]))
             if tagging_stock_info >= local_last_time:
                 print('已经标注完毕')
                 # 开始进行新的标注，在未标注的股票中随机生成一直股票进行标注
@@ -45,7 +47,8 @@ def get_data_main():
                 return recurse_rslt
             else:
                 # 开始最新日期后一天开始标注
-                return local_df, tagging_stock_info.apply(lambda x: datetime.datetime.strftime(x,"%Y-%m-%d")).values.tolist()[0], code
+                tagging_stock_info_str = datetime.datetime.strftime(tagging_stock_info,'%Y-%m-%d')
+                return local_df, tagging_stock_info_str, code
         else:
             #说明没有获取到标注信息，可以从头开始标注
             # 获取本地股票的dataframe，第一项是dataframe，第二项是最近日期

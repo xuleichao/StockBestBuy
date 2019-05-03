@@ -4,11 +4,13 @@ import numpy as np
 import mpl_finance as mpf
 import matplotlib.ticker as ticker
 from utils.tagging_data_util import get_data_main
+from utils.dataframe_2_sql import df_in_db
 import tushare as ts
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import datetime
+import pickle
 
 def labels_util(dates, data):
     dates_lst = dates.values.tolist()
@@ -38,8 +40,13 @@ def get_stock_data2(df, start):
     else:
         return None
 
+
 def graph_main_old(tag_df, start='2017-09-01', code=None):
     data = get_stock_data2(tag_df, start)
+    # 将数据导入数据库
+    #df_in_db(data, code)
+    with open('./dataSets/data.temp', 'wb') as f:
+        f.write(pickle.dumps([data, code]))
     prices = data[['open', 'high', 'low', 'close']]
     dates = data['date_time'].apply(lambda x: datetime.datetime.strftime(x,"%Y-%m-%d"))
     candleData = np.column_stack([list(range(len(dates))), prices])
