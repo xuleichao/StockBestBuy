@@ -6,6 +6,7 @@
 1. 爬取历史股价，K线(完成)
 - [所有股票代码](http://quote.eastmoney.com/stocklist.html)(完成)
 - [股票数据](http://www.aigaogao.com/tools/history.html)(完成)
+- 数据标注(正在进行)
 2. 建模
 3. 预测
 
