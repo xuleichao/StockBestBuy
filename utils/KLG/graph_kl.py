@@ -14,6 +14,7 @@ import pickle
 
 def labels_util(dates, data):
     dates_lst = dates.values.tolist()
+    dates_lst.reverse()
     data_x = [str(int(i[0])) for i in data]
     rslt = list(zip(dates_lst, data_x))
     return rslt
@@ -48,6 +49,9 @@ def graph_main_old(tag_df, start='2017-09-01', code=None):
     with open('./dataSets/data.temp', 'wb') as f:
         f.write(pickle.dumps([data, code]))
     prices = data[['open', 'high', 'low', 'close']]
+    prices_lst = prices.values.tolist()
+    prices_lst.reverse()
+    prices = pd.DataFrame(prices_lst, columns=['open', 'high', 'low', 'close'])
     dates = data['date_time'].apply(lambda x: datetime.datetime.strftime(x,"%Y-%m-%d"))
     candleData = np.column_stack([list(range(len(dates))), prices])
     fig = plt.figure(figsize=(10, 6))
