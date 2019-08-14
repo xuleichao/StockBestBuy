@@ -8,6 +8,7 @@
 - [股票数据](http://www.aigaogao.com/tools/history.html)(完成)
 - 数据标注(正在进行)
 2. 建模
+![蜡烛图](https://github.com/xuleichao/StockBestBuy/blob/master/static/images/%E8%9C%A1%E7%83%9B%E5%9B%BE.jpg)
 - 建模步骤：根据蜡烛图建模，获得各个组件所占比例。需要获得如下比例
 
     1. 蜡烛图总长度为基准
