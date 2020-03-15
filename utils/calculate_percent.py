@@ -23,17 +23,25 @@ def calculate(openprice, closeprice, maxprice, minprice):
     return upperpercent,lowerpercent,substancepercent
 
 if __name__ == '__main__':
+    lstxt = []
     path = '../dataSets/stock_KL/省广集团.dataframe'
+    txtpath = '../dataSets/feature/省广集团.txt'
     f = open(path,'rb').read()
     data = pickle.loads(f)
     # print(data.columns)
     df = data.values.tolist()
     for i in df[:-1]:
-        print(i[0])
+        # print(i[0])
         openprice = float(i[1])
         closeprice = float(i[4])
         maxprice = float(i[2])
         minprice = float(i[3])
         result = calculate(openprice, closeprice, maxprice, minprice)
+        newresult =i[0]+','+','.join(result)
+        lstxt.append(newresult)
 
-        print(result)
+    print(lstxt)
+    ftxt = open(txtpath,'w')
+    for i in lstxt:
+        ftxt.write(i+'\n')
+    ftxt.close()
