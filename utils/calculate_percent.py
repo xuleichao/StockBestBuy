@@ -1,5 +1,6 @@
 import pandas as pd
 import pickle
+import os
 
 
 def calculate(openprice, closeprice, maxprice, minprice):
@@ -22,26 +23,38 @@ def calculate(openprice, closeprice, maxprice, minprice):
 
     return upperpercent,lowerpercent,substancepercent
 
-if __name__ == '__main__':
+def savetxt(filename):
+    # print(filename)
     lstxt = []
-    path = '../dataSets/stock_KL/省广集团.dataframe'
-    txtpath = '../dataSets/feature/省广集团.txt'
-    f = open(path,'rb').read()
+    path = '../dataSets/stock_KL/'+filename
+    txtpath = '../dataSets/feature/'+filename.split('.')[0]+'.txt'
+    # with open(path, "rb") as f:
+    #     f = f.read()
+    f = open(path, 'rb').read()
     data = pickle.loads(f)
     # print(data.columns)
     df = data.values.tolist()
     for i in df[:-1]:
         # print(i[0])
-        openprice = float(i[1])
-        closeprice = float(i[4])
-        maxprice = float(i[2])
-        minprice = float(i[3])
+        openprice = float(i[1].replace(',', ''))
+        closeprice = float(i[4].replace(',', ''))
+        maxprice = float(i[2].replace(',', ''))
+        minprice = float(i[3].replace(',', ''))
         result = calculate(openprice, closeprice, maxprice, minprice)
-        newresult =i[0]+','+','.join(result)
+        newresult = i[0] + ',' + ','.join(result)
         lstxt.append(newresult)
-
-    print(lstxt)
-    ftxt = open(txtpath,'w')
+    # print(lstxt)
+    ftxt = open(txtpath, 'w')
     for i in lstxt:
-        ftxt.write(i+'\n')
+        ftxt.write(i + '\n')
     ftxt.close()
+
+
+if __name__ == '__main__':
+    filepath = '../dataSets/stock_KL'
+    pathlist = os.listdir(filepath)
+    # print(pathlist)
+    for i in pathlist:
+        if i == "_ST联谊.dataframe":
+            continue
+        savetxt(i)
