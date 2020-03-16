@@ -49,6 +49,51 @@ def savetxt(filename):
         ftxt.write(i + '\n')
     ftxt.close()
 
+def savetxt2(filename):
+    # print(filename)
+    lstxt = []
+    path = '../dataSets/stock_KL/'+filename
+    txtpath = '../dataSets/feature/'+filename.split('.')[0]+'.txt'
+    # with open(path, "rb") as f:
+    #     f = f.read()
+    f = open(path, 'rb').read()
+    data = pickle.loads(f)
+    # print(data.columns)
+    #df = data.values.tolist() 不转换为list
+    for i in range(df.shape[0]): # 遍历 dataframe 的方式
+        series_data = df.iloc[i]
+        # print(i[0])
+        openprice = float(series_data['开盘'])
+        closeprice = float(series_data['收盘'])
+        maxprice = float(series_data['最高'])
+        minprice = float(series_data['最低'])
+        result = calculate(openprice, closeprice, maxprice, minprice)
+        newresult = i[0] + ',' + ','.join(result)
+        lstxt.append(newresult)
+    # print(lstxt)
+    ftxt = open(txtpath, 'w')
+    for i in lstxt:
+        ftxt.write(i + '\n')
+    ftxt.close()
+
+def savetxt3(filename):
+    # print(filename)
+    lstxt = []
+    path = '../dataSets/stock_KL/'+filename
+    txtpath = '../dataSets/feature/'+filename.split('.')[0]+'.txt'
+    # with open(path, "rb") as f:
+    #     f = f.read()
+    f = open(path, 'rb').read()
+    data = pickle.loads(f)
+    # print(data.columns)
+    # df = data.values.tolist() #不转换为list
+    df['result'] = df.apply(lambda x: calculate(x["开盘"],
+                                                x['收盘'],
+                                                x['最高'],
+                                                x['最低']))
+    
+    return df
+
 
 if __name__ == '__main__':
     filepath = '../dataSets/stock_KL'
