@@ -57,7 +57,7 @@ def savetxt2(filename):
     # with open(path, "rb") as f:
     #     f = f.read()
     f = open(path, 'rb').read()
-    data = pickle.loads(f)
+    df = pickle.loads(f)
     # print(data.columns)
     #df = data.values.tolist() 不转换为list
     for i in range(df.shape[0]): # 遍历 dataframe 的方式
@@ -84,7 +84,7 @@ def savetxt3(filename):
     # with open(path, "rb") as f:
     #     f = f.read()
     f = open(path, 'rb').read()
-    data = pickle.loads(f)
+    df = pickle.loads(f)
     # print(data.columns)
     # df = data.values.tolist() #不转换为list
     df['result'] = df.apply(lambda x: calculate(x["开盘"],

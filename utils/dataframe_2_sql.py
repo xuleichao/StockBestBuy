@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from config.db_config import db_config
 
 def get_db_sys():
-    conn = create_engine('mysql+pymysql://%s:%s@%s:%s/my_gupiao?charset=utf8'%(db_config['user_name'],
+    conn = create_engine('mysql+pymysql://%s:%s@%s:%s/stock_best_buy?charset=utf8'%(db_config['user_name'],
                                                                          db_config['password'],
                                                                         db_config['IP'],
                                                                         db_config['port']),

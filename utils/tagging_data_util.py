@@ -30,8 +30,8 @@ def get_dataframe(name):
 def get_data_main():
     get_tag_info = get_in_tagging_stock() # 获取正在标注的股票
     if get_tag_info[0] == True:
-        code = get_tag_info[1][1]
-        name = get_tag_info[1][0]
+        code = get_tag_info[1][1]  # 股票代码
+        name = get_tag_info[1][0]  # 上市公司名称
         if name[0] == '*':
             name = name.replace('*', '_')
         tagging_stock_info = get_data_from_tagging_table(code) #从标注表中获取股票信息。返回最后的日期
