@@ -39,6 +39,12 @@ def get_stock_data2(df, start):
     if df_for_tag.shape[0] != 0:
         return df_for_tag
     else:
+        # todo 整个一个月都没数据，那就从endtime开始进行数据提取
+        new_start = datetime.datetime.strftime(endtime, '%Y-%m-%d')
+        new_endtime, new_endtime_str = gnrt_end_date('2013-11-21')
+        df_for_tag = df[(df['date_time'] > new_start) & (df['date_time'] < new_endtime)]
+        if df_for_tag.shape[0] != 0:
+            return df_for_tag
         return None
 
 
